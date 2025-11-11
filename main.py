@@ -1,4 +1,4 @@
-def analyze_characters(s):
+def analyze_text(s):  # 修正函数名为analyze_text
     """分析字符串中字符出现频率，并按降序打印"""
     # 创建字符计数字典
     char_count = {}
@@ -28,4 +28,4 @@ if __name__ == "__main__":
         print("输入的字符串为空！")
     else:
         print("字符出现频率（按降序排列）：")
-        analyze_characters(user_input)
+        analyze_text(user_input)  # 调用修正后的函数名
