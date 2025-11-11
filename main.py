@@ -1,31 +1,52 @@
-def analyze_text(s):  # 修正函数名为analyze_text
-    """分析字符串中字符出现频率，并按降序打印"""
-    # 创建字符计数字典
-    char_count = {}
+def analyze_text(text):
+    """
+    分析文本中字符频率并按频率降序排列
     
-    # 遍历字符串，统计每个字符的出现次数
-    for char in s:
-        if char in char_count:
-            char_count[char] += 1
-        else:
-            char_count[char] = 1
+    参数:
+    text - 输入的字符串
     
-    # 按出现频率降序排序（频率相同则按字符升序排列）
-    sorted_chars = sorted(char_count.items(), key=lambda x: (-x[1], x[0]))
-    
-    # 打印结果
-    for char, count in sorted_chars:
-        print(f"'{char}': {count}次")
+    返回:
+    list - 按字符频率降序排列的字符列表
+    """
+    freq = {}
+    lower_text = text.lower()  
+    for char in lower_text:
+        if char.isalpha():
+            freq[char] = freq.get(char, 0) + 1
+    sorted_items = sorted(freq.items(), key=lambda x: (-x[1], x[0]))
+    return [char for char, count in sorted_items]
 
+    
 
-# 主程序
+# 主程序，已完整
 if __name__ == "__main__":
-    # 获取用户输入的字符串
-    user_input = input("请输入一个字符串：")
+    print("文本字符频率分析器")
+    print("====================")
+    print("请输入一段文本（输入空行结束）：")
     
-    # 处理空字符串情况
-    if not user_input:
-        print("输入的字符串为空！")
+    # 读取多行输入
+    lines = []
+    while True:
+        try:
+            line = input()
+            if line == "":
+                break
+            lines.append(line)
+        except EOFError:
+            break
+    
+    # 合并输入文本
+    text = "\n".join(lines)
+    
+    if not text.strip():
+        print("未输入有效文本！")
     else:
-        print("字符出现频率（按降序排列）：")
-        analyze_text(user_input)  # 调用修正后的函数名
+        # 分析文本
+        sorted_chars = analyze_text(text)
+        
+        # 打印结果
+        print("\n字符频率降序排列:")
+        print(", ".join(sorted_chars))
+        
+        # 提示用户比较不同语言
+        print("\n提示: 尝试输入中英文文章片段，比较不同语言之间字符频率的差别")
